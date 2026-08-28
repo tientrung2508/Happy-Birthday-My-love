@@ -20,6 +20,33 @@
             box-sizing: border-box;
             overflow-x: hidden;
         }
+        /* Màn hình hộp quà ban đầu */
+        #gift-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .gift-icon {
+            font-size: 80px;
+            animation: bounce 1.2s infinite alternate;
+            user-select: none;
+        }
+        .click-hint {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #ff4d6d;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+        /* Nội dung chính bị ẩn ban đầu */
+        #main-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
         h1 {
             color: #ff4d6d;
             font-size: 2rem;
@@ -55,6 +82,10 @@
             animation: fall 4s linear infinite;
             z-index: 100;
         }
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-20px) scale(1.1); }
+        }
         @keyframes fall {
             0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
@@ -63,36 +94,67 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Chúc Mừng Sinh Nhật<br>Hoàng Thị Huyền Trang! 🎂❤️</h1>
-
-    <div class="message-box">
-        <p id="typing-text"></p>
+    <!-- Màn hình mở đầu: Hộp quà -->
+    <div id="gift-screen" onclick="openGift()">
+        <div class="gift-icon">🎁</div>
+        <div class="click-hint">Chạm vào hộp quà để mở nè Trang ơi ❤️</div>
     </div>
 
-    <div id="gift-section" class="gift-box">
-        <p style="margin: 0; font-weight: bold; color: #ff758f;">Món quà nhỏ mang con số ngày sinh 07/09/2001 dành riêng cho em 👇</p>
-        <p style="font-size: 1.6rem; font-weight: bold; color: #ffd166; margin: 15px 0;">792.001 VNĐ</p>
-        <p style="font-size: 0.9rem; color: #ddd; margin: 0;">Mở app ngân hàng kiểm tra nhé em yêu ❤️</p>
+    <!-- Nhạc sinh nhật -->
+    <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a730bf.mp3?filename=happy-birthday-155461.mp3" preload="auto"></audio>
+
+    <!-- Nội dung thiệp sau khi chạm vào hộp quà -->
+    <div id="main-content">
+        <h1>Chúc Mừng Sinh Nhật<br>Hoàng Thị Huyền Trang! 🎂❤️</h1>
+
+        <div class="message-box">
+            <p id="typing-text"></p>
+        </div>
+
+        <div id="gift-section" class="gift-box">
+            <p style="margin: 0; font-weight: bold; color: #ff758f;">Món quà nhỏ mang con số ngày sinh 07/09/2001 dành riêng cho em 👇</p>
+            <p style="font-size: 1.6rem; font-weight: bold; color: #ffd166; margin: 15px 0;">792.001 VNĐ</p>
+            <p style="font-size: 0.9rem; color: #ddd; margin: 0;">Mở app ngân hàng kiểm tra nhé em yêu ❤️</p>
+        </div>
     </div>
 
     <script>
         const text = "Chúc mừng sinh nhật Hoàng Thị Huyền Trang - công chúa của anh! Cảm ơn em vì đã đến và làm cho cuộc sống của anh trở nên tuyệt vời hơn mỗi ngày. Chúc em tuổi mới luôn xinh đẹp, rực rỡ và tràn ngập hạnh phúc. Anh có một bất ngờ nhỏ chuẩn bị riêng theo ngày sinh của em ở bên dưới nè... 👇";
         
-        let index = 0;
-        function typeWriter() {
-            if (index < text.length) {
-                document.getElementById("typing-text").innerHTML += text.charAt(index);
-                index++;
-                setTimeout(typeWriter, 70);
-            } else {
-                document.getElementById("gift-section").style.display = "block";
+        function openGift() {
+            // Ẩn màn hình hộp quà, hiện thiệp chúc
+            document.getElementById("gift-screen").style.display = "none";
+            document.getElementById("main-content").style.display = "flex";
+
+            // Bật nhạc
+            const audio = document.getElementById("bg-music");
+            audio.play();
+
+            // Chạy chữ
+            let index = 0;
+            function typeWriter() {
+                if (index < text.length) {
+                    document.getElementById("typing-text").innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 70);
+                } else {
+                    document.getElementById("gift-section").style.display = "block";
+                }
             }
+            typeWriter();
+
+            // Tạo trái tim rơi
+            setInterval(createHeart, 300);
         }
-        typeWriter();
 
         function createHeart() {
             const heart = document.createElement("div");
@@ -103,7 +165,6 @@
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 4000);
         }
-        setInterval(createHeart, 300);
     </script>
 </body>
 </html>
