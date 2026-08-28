@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Hoàng Thị Huyền Trang ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0d0d0d;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        h1 {
+            color: #ff4d6d;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #ff4d6d;
+        }
+        .message-box {
+            max-width: 500px;
+            width: 90%;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            border: 1px solid #ff4d6d;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 77, 109, 0.1);
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.2);
+            margin-bottom: 25px;
+        }
+        .gift-box {
+            display: none;
+            animation: fadeIn 1.5s ease-in-out forwards;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px dashed #ff4d6d;
+            max-width: 320px;
+            width: 100%;
+        }
+        .heart {
+            position: fixed;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: fall 4s linear infinite;
+            z-index: 100;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Chúc Mừng Sinh Nhật<br>Hoàng Thị Huyền Trang! 🎂❤️</h1>
+
+    <div class="message-box">
+        <p id="typing-text"></p>
+    </div>
+
+    <div id="gift-section" class="gift-box">
+        <p style="margin: 0; font-weight: bold; color: #ff758f;">Món quà nhỏ mang con số ngày sinh 07/09/2001 dành riêng cho em 👇</p>
+        <p style="font-size: 1.6rem; font-weight: bold; color: #ffd166; margin: 15px 0;">792.001 VNĐ</p>
+        <p style="font-size: 0.9rem; color: #ddd; margin: 0;">Mở app ngân hàng kiểm tra nhé em yêu ❤️</p>
+    </div>
+
+    <script>
+        const text = "Chúc mừng sinh nhật Hoàng Thị Huyền Trang - công chúa của anh! Cảm ơn em vì đã đến và làm cho cuộc sống của anh trở nên tuyệt vời hơn mỗi ngày. Chúc em tuổi mới luôn xinh đẹp, rực rỡ và tràn ngập hạnh phúc. Anh có một bất ngờ nhỏ chuẩn bị riêng theo ngày sinh của em ở bên dưới nè... 👇";
+        
+        let index = 0;
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("typing-text").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 70);
+            } else {
+                document.getElementById("gift-section").style.display = "block";
+            }
+        }
+        typeWriter();
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
