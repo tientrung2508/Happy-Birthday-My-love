@@ -20,18 +20,44 @@
             box-sizing: border-box;
             overflow-x: hidden;
         }
-        #gift-screen {
+
+        /* Màn hình đếm ngược & mở quà */
+        #welcome-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
         }
+
+        #countdown-box {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #ff4d6d;
+            text-shadow: 0 0 25px rgba(255, 77, 109, 0.8);
+            animation: pulse 1s infinite;
+            margin-bottom: 10px;
+        }
+
+        .countdown-title {
+            font-size: 1.2rem;
+            color: #ffb3c1;
+            margin-bottom: 20px;
+        }
+
+        #gift-btn {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: zoomIn 0.8s ease-in-out;
+        }
+
         .gift-icon {
-            font-size: 80px;
+            font-size: 85px;
             animation: bounce 1.2s infinite alternate;
             user-select: none;
         }
+
         .click-hint {
             margin-top: 15px;
             font-size: 1.2rem;
@@ -39,21 +65,58 @@
             font-weight: bold;
             animation: pulse 1.5s infinite;
         }
+
+        /* Nội dung chính */
         #main-content {
             display: none;
             flex-direction: column;
             align-items: center;
             width: 100%;
+            max-width: 600px;
         }
+
         h1 {
             color: #ff4d6d;
             font-size: 2rem;
             margin-bottom: 15px;
             text-shadow: 0 0 10px #ff4d6d;
         }
+
+        /* Khung ảnh kỷ niệm xinh xắn */
+        .photo-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .photo-card {
+            width: 100px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #ff4d6d;
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:nth-child(2) {
+            transform: rotate(3deg);
+        }
+
+        .photo-card:nth-child(3) {
+            transform: rotate(-2deg);
+        }
+
+        .photo-card:hover {
+            transform: scale(1.1) rotate(0deg);
+        }
+
         .message-box {
-            max-width: 500px;
-            width: 90%;
+            width: 100%;
             font-size: 1.1rem;
             line-height: 1.8;
             border: 1px solid #ff4d6d;
@@ -62,7 +125,9 @@
             background: rgba(255, 77, 109, 0.1);
             box-shadow: 0 0 20px rgba(255, 77, 109, 0.2);
             margin-bottom: 25px;
+            box-sizing: border-box;
         }
+
         .gift-box {
             display: none;
             animation: fadeIn 1.5s ease-in-out forwards;
@@ -70,9 +135,11 @@
             padding: 20px;
             border-radius: 15px;
             border: 1px dashed #ff4d6d;
-            max-width: 320px;
             width: 100%;
+            max-width: 340px;
+            box-sizing: border-box;
         }
+
         .heart {
             position: fixed;
             color: #ff4d6d;
@@ -80,6 +147,8 @@
             animation: fall 4s linear infinite;
             z-index: 100;
         }
+
+        /* Animations */
         @keyframes bounce {
             0% { transform: translateY(0) scale(1); }
             100% { transform: translateY(-20px) scale(1.1); }
@@ -92,25 +161,45 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
         @keyframes pulse {
-            0% { opacity: 0.6; }
+            0% { opacity: 0.7; }
             50% { opacity: 1; }
-            100% { opacity: 0.6; }
+            100% { opacity: 0.7; }
         }
     </style>
 </head>
 <body>
 
-    <div id="gift-screen" onclick="openGift()">
-        <div class="gift-icon">🎁</div>
-        <div class="click-hint">Chạm vào hộp quà để mở nè Bà xã húi... ❤️</div>
+    <!-- Màn hình Đếm ngược & Nút Mở quà -->
+    <div id="welcome-screen">
+        <div id="countdown-area">
+            <div class="countdown-title">Bất ngờ chuẩn bị xuất hiện sau...</div>
+            <div id="countdown-box">10</div>
+        </div>
+
+        <div id="gift-btn" onclick="openGift()">
+            <div class="gift-icon">🎁</div>
+            <div class="click-hint">Chạm vào hộp quà để mở nè Bà xã húi... ❤️</div>
+        </div>
     </div>
 
-    <!-- Nhạc phát trực tiếp từ file nhac.mp3 trên GitHub của bạn -->
-    <audio id="bg-music" src="nhac.mp3" preload="auto" playsinline></audio>
+    <!-- Nhạc nền phát lặp đi lặp lại -->
+    <audio id="bg-music" src="nhac.mp3" preload="auto" playsinline loop></audio>
 
+    <!-- Nội dung lời chúc & hình ảnh -->
     <div id="main-content">
         <h1>Chúc Mừng Sinh Nhật<br>Hoàng Thị Huyền Trang! 🎂❤️</h1>
+
+        <!-- Bộ ảnh xinh xắn của hai bạn -->
+        <div class="photo-gallery">
+            <img src="anh1.jpg" alt="Ảnh 1" class="photo-card">
+            <img src="anh2.jpg" alt="Ảnh 2" class="photo-card">
+            <img src="anh3.jpg" alt="Ảnh 3" class="photo-card">
+        </div>
 
         <div class="message-box">
             <p id="typing-text"></p>
@@ -124,15 +213,40 @@
     </div>
 
     <script>
+        // Xử lý đếm ngược từ 10 về 0
+        let count = 10;
+        const countdownBox = document.getElementById("countdown-box");
+        const countdownArea = document.getElementById("countdown-area");
+        const giftBtn = document.getElementById("gift-btn");
+
+        const timer = setInterval(() => {
+            count--;
+            if (count > 0) {
+                countdownBox.innerText = count;
+            } else {
+                clearInterval(timer);
+                countdownArea.style.display = "none";
+                giftBtn.style.display = "flex";
+            }
+        }, 1000);
+
+        // Lời chúc chạy chữ
         const text = "Chúc mừng sinh nhật Hoàng Thị Huyền Trang - công chúa của anh! Cảm ơn em vì đã đến và làm cho cuộc sống của anh trở nên tuyệt vời hơn mỗi ngày. Chúc em tuổi mới luôn xinh đẹp, rực rỡ và tràn ngập hạnh phúc. Anh có một bất ngờ nhỏ chuẩn bị riêng theo ngày sinh của em ở bên dưới nè... 👇";
         
+        const audio = document.getElementById("bg-music");
+
+        // Ép bài nhạc tự động tua lại từ đầu khi kết thúc (Tối ưu cho iOS / Safari)
+        audio.addEventListener("ended", function() {
+            audio.currentTime = 0;
+            audio.play();
+        });
+
         function openGift() {
-            const audio = document.getElementById("bg-music");
             audio.play().catch(function(error) {
                 console.log("Audio play error:", error);
             });
 
-            document.getElementById("gift-screen").style.display = "none";
+            document.getElementById("welcome-screen").style.display = "none";
             document.getElementById("main-content").style.display = "flex";
 
             let index = 0;
