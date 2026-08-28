@@ -78,41 +78,55 @@
         h1 {
             color: #ff4d6d;
             font-size: 2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #ff4d6d;
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px #ff4d6d;
         }
 
-        /* Khung ảnh kỷ niệm xinh xắn */
+        /* Bộ khung ảnh kỷ niệm ĐỘNG xịn xò */
         .photo-gallery {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             width: 100%;
         }
 
         .photo-card {
-            width: 100px;
-            height: 120px;
+            width: 105px;
+            height: 135px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 15px;
             border: 2px solid #ff4d6d;
-            box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
-            transform: rotate(-3deg);
-            transition: transform 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+            background-color: #1a1a1a;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        /* Hiệu ứng đung đưa bồng bềnh riêng cho từng ảnh */
+        .photo-card:nth-child(1) {
+            transform: rotate(-5deg);
+            animation: floatLeft 3s ease-in-out infinite alternate, photoGlow 2s infinite alternate;
         }
 
         .photo-card:nth-child(2) {
-            transform: rotate(3deg);
+            transform: rotate(0deg) translateY(-8px);
+            animation: floatCenter 2.8s ease-in-out infinite alternate, photoGlow 2.5s infinite alternate;
         }
 
         .photo-card:nth-child(3) {
-            transform: rotate(-2deg);
+            transform: rotate(5deg);
+            animation: floatRight 3.2s ease-in-out infinite alternate, photoGlow 2.2s infinite alternate;
         }
 
-        .photo-card:hover {
-            transform: scale(1.1) rotate(0deg);
+        /* Khi chạm / rê chuột vào ảnh thì phóng to và tỏa sáng */
+        .photo-card:hover, .photo-card:active {
+            transform: scale(1.18) rotate(0deg) !important;
+            z-index: 10;
+            border-color: #ffd166;
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.9);
         }
 
         .message-box {
@@ -148,23 +162,47 @@
             z-index: 100;
         }
 
-        /* Animations */
+        /* Animations cho ảnh & giao diện */
+        @keyframes floatLeft {
+            0% { transform: rotate(-5deg) translateY(0); }
+            100% { transform: rotate(-2deg) translateY(-10px); }
+        }
+
+        @keyframes floatCenter {
+            0% { transform: rotate(0deg) translateY(-8px); }
+            100% { transform: rotate(2deg) translateY(2px); }
+        }
+
+        @keyframes floatRight {
+            0% { transform: rotate(5deg) translateY(0); }
+            100% { transform: rotate(2deg) translateY(-12px); }
+        }
+
+        @keyframes photoGlow {
+            0% { box-shadow: 0 0 12px rgba(255, 77, 109, 0.4); }
+            100% { box-shadow: 0 0 22px rgba(255, 77, 109, 0.8); }
+        }
+
         @keyframes bounce {
             0% { transform: translateY(0) scale(1); }
             100% { transform: translateY(-20px) scale(1.1); }
         }
+
         @keyframes fall {
             0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         @keyframes zoomIn {
             from { opacity: 0; transform: scale(0.5); }
             to { opacity: 1; transform: scale(1); }
         }
+
         @keyframes pulse {
             0% { opacity: 0.7; }
             50% { opacity: 1; }
@@ -194,11 +232,11 @@
     <div id="main-content">
         <h1>Chúc Mừng Sinh Nhật<br>Hoàng Thị Huyền Trang! 🎂❤️</h1>
 
-        <!-- Bộ ảnh xinh xắn của hai bạn -->
+        <!-- Bộ ảnh xinh xắn ĐỘNG (Đã sửa đường dẫn thành .JPG chữ hoa) -->
         <div class="photo-gallery">
-            <img src="anh1.jpg" alt="Ảnh 1" class="photo-card">
-            <img src="anh2.jpg" alt="Ảnh 2" class="photo-card">
-            <img src="anh3.jpg" alt="Ảnh 3" class="photo-card">
+            <img src="anh1.JPG" alt="Ảnh 1" class="photo-card">
+            <img src="anh2.JPG" alt="Ảnh 2" class="photo-card">
+            <img src="anh3.JPG" alt="Ảnh 3" class="photo-card">
         </div>
 
         <div class="message-box">
