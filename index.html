@@ -20,7 +20,6 @@
             box-sizing: border-box;
             overflow-x: hidden;
         }
-        /* Màn hình hộp quà ban đầu */
         #gift-screen {
             display: flex;
             flex-direction: column;
@@ -40,7 +39,6 @@
             font-weight: bold;
             animation: pulse 1.5s infinite;
         }
-        /* Nội dung chính bị ẩn ban đầu */
         #main-content {
             display: none;
             flex-direction: column;
@@ -103,16 +101,14 @@
 </head>
 <body>
 
-    <!-- Màn hình mở đầu: Hộp quà -->
     <div id="gift-screen" onclick="openGift()">
         <div class="gift-icon">🎁</div>
-        <div class="click-hint">Chạm vào hộp quà để mở nè Trang ơi ❤️</div>
+        <div class="click-hint">Chạm vào hộp quà để mở nè Bà xã húi... ❤️</div>
     </div>
 
-    <!-- Nhạc sinh nhật -->
-    <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a730bf.mp3?filename=happy-birthday-155461.mp3" preload="auto"></audio>
+    <!-- Link nhạc chuẩn hỗ trợ iOS -->
+    <audio id="bg-music" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-456.mp3" preload="auto" playsinline></audio>
 
-    <!-- Nội dung thiệp sau khi chạm vào hộp quà -->
     <div id="main-content">
         <h1>Chúc Mừng Sinh Nhật<br>Hoàng Thị Huyền Trang! 🎂❤️</h1>
 
@@ -131,15 +127,14 @@
         const text = "Chúc mừng sinh nhật Hoàng Thị Huyền Trang - công chúa của anh! Cảm ơn em vì đã đến và làm cho cuộc sống của anh trở nên tuyệt vời hơn mỗi ngày. Chúc em tuổi mới luôn xinh đẹp, rực rỡ và tràn ngập hạnh phúc. Anh có một bất ngờ nhỏ chuẩn bị riêng theo ngày sinh của em ở bên dưới nè... 👇";
         
         function openGift() {
-            // Ẩn màn hình hộp quà, hiện thiệp chúc
+            const audio = document.getElementById("bg-music");
+            audio.play().catch(function(error) {
+                console.log("Audio play error:", error);
+            });
+
             document.getElementById("gift-screen").style.display = "none";
             document.getElementById("main-content").style.display = "flex";
 
-            // Bật nhạc
-            const audio = document.getElementById("bg-music");
-            audio.play();
-
-            // Chạy chữ
             let index = 0;
             function typeWriter() {
                 if (index < text.length) {
@@ -152,7 +147,6 @@
             }
             typeWriter();
 
-            // Tạo trái tim rơi
             setInterval(createHeart, 300);
         }
 
