@@ -118,7 +118,6 @@
             object-fit: cover;
         }
 
-        /* Dấu chấm chuyển slide */
         .dots-container {
             position: absolute;
             bottom: 12px;
@@ -196,31 +195,39 @@
             text-shadow: 0 0 8px rgba(255, 209, 102, 0.6);
         }
 
-        /* Khung Lời Nhắn Bí Mật Lung Linh */
+        /* Khung Biên Lai Tình Yêu VIP */
         #secret-message-box {
             display: none;
-            margin-top: 20px;
-            padding: 22px;
+            margin-top: 10px;
+            padding: 25px 20px;
             border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 77, 109, 0.25));
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.95), rgba(40, 25, 30, 0.95));
             border: 2px solid #ffd166;
             color: #fff;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            box-shadow: 0 0 25px rgba(255, 209, 102, 0.5), inset 0 0 15px rgba(255, 209, 102, 0.2);
+            box-shadow: 0 0 30px rgba(255, 209, 102, 0.4), inset 0 0 15px rgba(255, 209, 102, 0.15);
             animation: zoomIn 0.8s ease-in-out forwards;
             box-sizing: border-box;
             width: 100%;
-            position: relative;
         }
 
-        .highlight-money {
+        .card-header {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
             color: #ffd166;
+            text-transform: uppercase;
             font-weight: bold;
-            font-size: 1.4rem;
-            text-shadow: 0 0 10px #ffd166;
-            display: inline-block;
-            margin: 5px 0;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed rgba(255, 209, 102, 0.4);
+            padding-bottom: 8px;
+        }
+
+        .counter-money {
+            font-size: 2.3rem;
+            font-weight: 900;
+            color: #ffd166;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.8);
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
         }
 
         .heart {
@@ -231,7 +238,6 @@
             z-index: 100;
         }
 
-        /* Animations */
         @keyframes floatContainer {
             0% { transform: translateY(0); }
             100% { transform: translateY(-8px); }
@@ -289,13 +295,13 @@
         <!-- Slide Ảnh To Bự -->
         <div class="slider-container">
             <div class="slide active">
-                <img src="anh1.JPG?v=6" alt="Ảnh 1" onerror="this.onerror=null; this.src='anh1.jpg?v=6';">
+                <img src="anh1.JPG?v=9" alt="Ảnh 1" onerror="this.onerror=null; this.src='anh1.jpg?v=9';">
             </div>
             <div class="slide">
-                <img src="anh2.JPG?v=6" alt="Ảnh 2" onerror="this.onerror=null; this.src='anh2.jpg?v=6';">
+                <img src="anh2.JPG?v=9" alt="Ảnh 2" onerror="this.onerror=null; this.src='anh2.jpg?v=9';">
             </div>
             <div class="slide">
-                <img src="anh3.JPG?v=6" alt="Ảnh 3" onerror="this.onerror=null; this.src='anh3.jpg?v=6';">
+                <img src="anh3.JPG?v=9" alt="Ảnh 3" onerror="this.onerror=null; this.src='anh3.jpg?v=9';">
             </div>
 
             <div class="dots-container">
@@ -305,11 +311,12 @@
             </div>
         </div>
 
-        <div class="message-box">
+        <!-- Khung chữ 1 -->
+        <div id="message-box-1" class="message-box">
             <p id="typing-text"></p>
         </div>
 
-        <!-- Khung số tiền sinh nhật -->
+        <!-- Khung số tiền sinh nhật 1 -->
         <div id="gift-section" class="gift-box">
             <p style="margin: 0; font-weight: bold; color: #ff758f;">Món quà nhỏ ghép theo mốc sinh nhật 2001/09/07 dành riêng cho em 👇</p>
             <p style="font-size: 1.6rem; font-weight: bold; color: #ffd166; margin: 15px 0;">200.197 VNĐ</p>
@@ -322,14 +329,15 @@
             <div class="secret-gift-hint">✨ Chạm vào đây để mở điều bí mật cuối cùng... ✨</div>
         </div>
 
-        <!-- Khung Lời Nhắn Bí Mật Lung Linh -->
+        <!-- Khung Thẻ Quà Tặng VIP Nhảy Số & Chạy Chữ 2 -->
         <div id="secret-message-box">
-            <p id="typing-text-2" style="margin: 0;"></p>
+            <div class="card-header">💡 Lợi Nhuận Tích Lũy Từ Chất Xám 💡</div>
+            <div id="counter" class="counter-money">0 VNĐ</div>
+            <p id="typing-text-2" style="margin-top: 15px; font-size: 1.05rem; line-height: 1.8; color: #eee;"></p>
         </div>
     </div>
 
     <script>
-        // Xử lý đếm ngược từ 10 về 0
         let count = 10;
         const countdownBox = document.getElementById("countdown-box");
         const countdownArea = document.getElementById("countdown-area");
@@ -346,15 +354,12 @@
             }
         }, 1000);
 
-        // Lời chúc chạy chữ 1
         const text1 = "Chúc mừng sinh nhật Hoàng Thị Huyền Trang - công chúa của anh! Cảm ơn em vì đã đến và làm cho cuộc sống của anh trở nên tuyệt vời hơn mỗi ngày. Chúc em tuổi mới luôn xinh đẹp, rực rỡ và tràn ngập hạnh phúc. Anh có một bất ngờ nhỏ chuẩn bị riêng theo ngày sinh của em ở bên dưới nè... 👇";
         
-        // Lời chúc chạy chữ 2
-        const text2 = "Đây là 862.920 VNĐ — số tiền anh kiếm thêm được cho em từ chính chất xám của mình. Tuy không phải con số quá lớn, nhưng hy vọng món quà nhỏ chứa đựng tất cả sự nỗ lực này sẽ mang lại cho công chúa của anh thật nhiều niềm vui và hạnh phúc... ❤️✨";
+        const text2 = "Đây là toàn bộ số tiền lãi từ chất xám mà anh đã dành trọn nỗ lực tích lũy riêng cho em. Tuy con số chưa quá lớn, nhưng nó chứa đựng tất cả sự cố gắng của anh với mong muốn mang lại chút niềm vui và nụ cười cho công chúa của anh hôm nay... ❤️✨";
 
         const audio = document.getElementById("bg-music");
 
-        // Xử lý Slide Ảnh
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
@@ -385,7 +390,6 @@
             document.getElementById("welcome-screen").style.display = "none";
             document.getElementById("main-content").style.display = "flex";
 
-            // Tự động chuyển slide ảnh 3 GIÂY (3000ms)
             setInterval(nextSlide, 3000);
 
             let index = 0;
@@ -404,24 +408,51 @@
             setInterval(createHeart, 300);
         }
 
-        // Mở lời nhắn bí mật chạy chữ lần 2 + Bắn tim lung linh
+        // Bấm quà lần 2: Ẩn chữ/quà lần 1 -> Hiện khung VIP -> Nhảy số 5 giây -> Chạy chữ lần 2
         function revealSecretMessage() {
+            // Ẩn toàn bộ thành phần của lần 1
+            document.getElementById("message-box-1").style.display = "none";
+            document.getElementById("gift-section").style.display = "none";
             document.getElementById("secret-gift-wrapper").style.display = "none";
+
+            // Hiện khung quà bí mật 2
             document.getElementById("secret-message-box").style.display = "block";
             
-            // Bắn mưa tim rực rỡ
-            for(let i = 0; i < 25; i++) {
-                setTimeout(createHeart, i * 80);
+            // Bắn mưa tim
+            for(let i = 0; i < 35; i++) {
+                setTimeout(createHeart, i * 60);
             }
 
-            // Hiệu ứng chạy chữ lần 2
+            // Chạy số từ 0 -> 862.920 VNĐ đúng 5 giây (5000ms)
+            let targetMoney = 862920;
+            let duration = 5000; 
+            let intervalTime = 30; 
+            let totalSteps = duration / intervalTime;
+            let currentStep = 0;
+            let counterElement = document.getElementById("counter");
+
+            let moneyTimer = setInterval(() => {
+                currentStep++;
+                let progress = currentStep / totalSteps;
+                let currentMoney = Math.floor(targetMoney * progress);
+
+                if (currentStep >= totalSteps) {
+                    currentMoney = targetMoney;
+                    clearInterval(moneyTimer);
+                    // Nhảy số xong đủ 5 giây mới bắt đầu chạy chữ tâm sự lần 2
+                    startTypingText2();
+                }
+                counterElement.innerText = currentMoney.toLocaleString('vi-VN') + " VNĐ";
+            }, intervalTime);
+        }
+
+        function startTypingText2() {
             let index2 = 0;
             function typeWriter2() {
                 if (index2 < text2.length) {
-                    let char = text2.charAt(index2);
-                    document.getElementById("typing-text-2").innerHTML += char;
+                    document.getElementById("typing-text-2").innerHTML += text2.charAt(index2);
                     index2++;
-                    setTimeout(typeWriter2, 65);
+                    setTimeout(typeWriter2, 60);
                 }
             }
             typeWriter2();
