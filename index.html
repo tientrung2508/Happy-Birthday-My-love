@@ -180,33 +180,47 @@
         }
 
         .secret-gift-btn {
-            font-size: 65px;
+            font-size: 70px;
             cursor: pointer;
             animation: bounce 1s infinite alternate;
             user-select: none;
+            filter: drop-shadow(0 0 15px #ffd166);
         }
 
         .secret-gift-hint {
             color: #ffd166;
             font-weight: bold;
-            font-size: 1rem;
-            margin-top: 8px;
+            font-size: 1.05rem;
+            margin-top: 10px;
             animation: pulse 1.2s infinite;
+            text-shadow: 0 0 8px rgba(255, 209, 102, 0.6);
         }
 
-        /* Khung Lời Nhắn Bí Mật */
+        /* Khung Lời Nhắn Bí Mật Lung Linh */
         #secret-message-box {
             display: none;
             margin-top: 20px;
-            padding: 18px;
-            border-radius: 15px;
-            background: rgba(255, 209, 102, 0.15);
-            border: 1px solid #ffd166;
+            padding: 22px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 77, 109, 0.25));
+            border: 2px solid #ffd166;
             color: #fff;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            box-shadow: 0 0 15px rgba(255, 209, 102, 0.3);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.5), inset 0 0 15px rgba(255, 209, 102, 0.2);
             animation: zoomIn 0.8s ease-in-out forwards;
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+        }
+
+        .highlight-money {
+            color: #ffd166;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px #ffd166;
+            display: inline-block;
+            margin: 5px 0;
         }
 
         .heart {
@@ -275,13 +289,13 @@
         <!-- Slide Ảnh To Bự -->
         <div class="slider-container">
             <div class="slide active">
-                <img src="anh1.JPG?v=5" alt="Ảnh 1" onerror="this.onerror=null; this.src='anh1.jpg?v=5';">
+                <img src="anh1.JPG?v=6" alt="Ảnh 1" onerror="this.onerror=null; this.src='anh1.jpg?v=6';">
             </div>
             <div class="slide">
-                <img src="anh2.JPG?v=5" alt="Ảnh 2" onerror="this.onerror=null; this.src='anh2.jpg?v=5';">
+                <img src="anh2.JPG?v=6" alt="Ảnh 2" onerror="this.onerror=null; this.src='anh2.jpg?v=6';">
             </div>
             <div class="slide">
-                <img src="anh3.JPG?v=5" alt="Ảnh 3" onerror="this.onerror=null; this.src='anh3.jpg?v=5';">
+                <img src="anh3.JPG?v=6" alt="Ảnh 3" onerror="this.onerror=null; this.src='anh3.jpg?v=6';">
             </div>
 
             <div class="dots-container">
@@ -305,12 +319,12 @@
         <!-- Nút Hộp Quà Bí Mật Sau Khi Chạy Chữ Xong -->
         <div id="secret-gift-wrapper">
             <div class="secret-gift-btn" onclick="revealSecretMessage()">🎁</div>
-            <div class="secret-gift-hint">Chạm vào đây để xem lời nhắn từ anh... ✨</div>
+            <div class="secret-gift-hint">✨ Chạm vào đây để mở điều bí mật cuối cùng... ✨</div>
         </div>
 
-        <!-- Khung Lời Nhắn Bí Mật -->
+        <!-- Khung Lời Nhắn Bí Mật Lung Linh -->
         <div id="secret-message-box">
-            "Đây là số tiền lãi tính đến hiện tại anh kiếm được cho em, tuy không nhiều nhưng hy vọng một chút chất xám của anh làm em vui... ❤️"
+            <p id="typing-text-2" style="margin: 0;"></p>
         </div>
     </div>
 
@@ -332,9 +346,12 @@
             }
         }, 1000);
 
-        // Lời chúc chạy chữ
-        const text = "Chúc mừng sinh nhật Hoàng Thị Huyền Trang - công chúa của anh! Cảm ơn em vì đã đến và làm cho cuộc sống của anh trở nên tuyệt vời hơn mỗi ngày. Chúc em tuổi mới luôn xinh đẹp, rực rỡ và tràn ngập hạnh phúc. Anh có một bất ngờ nhỏ chuẩn bị riêng theo ngày sinh của em ở bên dưới nè... 👇";
+        // Lời chúc chạy chữ 1
+        const text1 = "Chúc mừng sinh nhật Hoàng Thị Huyền Trang - công chúa của anh! Cảm ơn em vì đã đến và làm cho cuộc sống của anh trở nên tuyệt vời hơn mỗi ngày. Chúc em tuổi mới luôn xinh đẹp, rực rỡ và tràn ngập hạnh phúc. Anh có một bất ngờ nhỏ chuẩn bị riêng theo ngày sinh của em ở bên dưới nè... 👇";
         
+        // Lời chúc chạy chữ 2
+        const text2 = "Đây là 862.920 VNĐ — số tiền anh kiếm thêm được cho em từ chính chất xám của mình. Tuy không phải con số quá lớn, nhưng hy vọng món quà nhỏ chứa đựng tất cả sự nỗ lực này sẽ mang lại cho công chúa của anh thật nhiều niềm vui và hạnh phúc... ❤️✨";
+
         const audio = document.getElementById("bg-music");
 
         // Xử lý Slide Ảnh
@@ -372,31 +389,42 @@
             setInterval(nextSlide, 3000);
 
             let index = 0;
-            function typeWriter() {
-                if (index < text.length) {
-                    document.getElementById("typing-text").innerHTML += text.charAt(index);
+            function typeWriter1() {
+                if (index < text1.length) {
+                    document.getElementById("typing-text").innerHTML += text1.charAt(index);
                     index++;
-                    setTimeout(typeWriter, 70);
+                    setTimeout(typeWriter1, 70);
                 } else {
-                    // Chạy chữ xong thì hiện khung tiền + hộp quà bí mật
                     document.getElementById("gift-section").style.display = "block";
                     document.getElementById("secret-gift-wrapper").style.display = "flex";
                 }
             }
-            typeWriter();
+            typeWriter1();
 
             setInterval(createHeart, 300);
         }
 
-        // Mở lời nhắn bí mật từ chất xám
+        // Mở lời nhắn bí mật chạy chữ lần 2 + Bắn tim lung linh
         function revealSecretMessage() {
             document.getElementById("secret-gift-wrapper").style.display = "none";
             document.getElementById("secret-message-box").style.display = "block";
             
-            // Bắn thêm hiệu ứng mưa tim dày đặc ăn mừng
-            for(let i = 0; i < 15; i++) {
-                setTimeout(createHeart, i * 100);
+            // Bắn mưa tim rực rỡ
+            for(let i = 0; i < 25; i++) {
+                setTimeout(createHeart, i * 80);
             }
+
+            // Hiệu ứng chạy chữ lần 2
+            let index2 = 0;
+            function typeWriter2() {
+                if (index2 < text2.length) {
+                    let char = text2.charAt(index2);
+                    document.getElementById("typing-text-2").innerHTML += char;
+                    index2++;
+                    setTimeout(typeWriter2, 65);
+                }
+            }
+            typeWriter2();
         }
 
         function createHeart() {
